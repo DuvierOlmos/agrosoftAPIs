@@ -2,6 +2,8 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../db/db.config');
 const User = require('./user');
+const Product = require('./product'); 
+const TipoDescuento = require('./tipoDescuento');
 
 const Descuento = sequelize.define('Descuento', {
   id_descuento: {
@@ -13,24 +15,32 @@ const Descuento = sequelize.define('Descuento', {
     type: DataTypes.STRING,
     allowNull: false,
   },
+  tipo_descuento: {
+    type: DataTypes.STRING,
+  },
+  valor_descuento: {
+    type: DataTypes.DECIMAL(10, 2),
+    allowNull: false,
+  },
+  fecha_inicio: {
+    type: DataTypes.DATE,
+  },
+  fecha_fin: {
+    type: DataTypes.DATE,
+  },
   codigo_descuento: {
     type: DataTypes.STRING,
     unique: true,
   },
-  valor_descuento: {
-    type: DataTypes.DECIMAL(5, 2),
-    allowNull: false,
-  },
-  fecha_inicio_descuento: {
-    type: DataTypes.DATE,
-    allowNull: false,
-  },
-  fecha_fin_descuento: {
-    type: DataTypes.DATE,
-    allowNull: false,
-  },
+  activo: {
+    type: DataTypes.INTEGER,
+  }
+}, {
+    tableName: 'descuento',
+    timestamps: false
 });
+//Descuento.belongsTo(Product, { foreignKey: 'id_producto' });
+//Descuento.belongsTo(User, { foreignKey: 'id_usuario' });
 
-Descuento.belongsTo(User, { foreignKey: 'id_usuario' });
 
 module.exports = Descuento;

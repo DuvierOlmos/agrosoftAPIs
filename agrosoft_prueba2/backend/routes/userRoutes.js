@@ -7,7 +7,7 @@ const adminMiddleware = require('../middlewares/adminMiddleware');
 
 router.get('/profile', userController.getProfile);
 router.put('/profile', userController.updateProfile);
-
 router.get('/', userController.getAllUsers);
+router.delete('/deleteUser', userController.deleteUser)
 
 module.exports = router;

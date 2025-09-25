@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken');
 const User = require('../models/user');
 const Rol = require('../models/rol');
 
-// Asegúrate de que esta variable de entorno esté configurada
+// configurar variable de entorno
 const JWT_SECRET = process.env.JWT_SECRET || 'tu_secreto_super_seguro';
 
 exports.register = async (req, res) => {
