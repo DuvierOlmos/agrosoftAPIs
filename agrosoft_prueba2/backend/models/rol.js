@@ -2,7 +2,7 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../db/db.config');
 
-const Rol = sequelize.define('Rol', {
+const Rol = sequelize.define('rol', {
   id_rol: {
     type: DataTypes.INTEGER,
     primaryKey: true,
@@ -12,6 +12,12 @@ const Rol = sequelize.define('Rol', {
     type: DataTypes.STRING,
     allowNull: false,
   },
+  descripcion_rol: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  }},{
+    tableName: 'roles',
+    timestamps: false
 });
 
 module.exports = Rol;

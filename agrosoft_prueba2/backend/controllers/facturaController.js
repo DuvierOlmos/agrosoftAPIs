@@ -1,5 +1,5 @@
-const Factura = require('../models/factura');
-const Order = require('../models/order');
+const Factura = require('../models/detalle_pedido');
+const Order = require('../models/pedido');
 
 exports.getFacturaByOrderId = async (req, res) => {
   const { orderId } = req.params;

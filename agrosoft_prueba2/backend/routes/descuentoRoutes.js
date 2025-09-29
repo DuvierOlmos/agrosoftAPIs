@@ -2,10 +2,13 @@
 const express = require('express');
 const router = express.Router();
 const descuentoController = require('../controllers/descuentoController');
-const authMiddleware = require('../middlewares/authMiddleware');
-const adminMiddleware = require('../middlewares/adminMiddleware');
+const adminMiddleware = require('../middlewares/adminMiddleware'); // Debe estar creado
 
-router.post('/', authMiddleware, adminMiddleware, descuentoController.createDescuento);
-router.get('/', descuentoController.getAllDescuentos);
+// Rutas de administración de Descuentos (solo para Admin)
+router.post('/create',  descuentoController.createDescuento);
+router.get('/admin',  descuentoController.getAllDescuentos);
+router.get('/:id',  descuentoController.getDescuentoById);
+router.put('/update/:id',  descuentoController.updateDescuento);
+router.delete('/delete/:id',  descuentoController.deleteDescuento);
 
 module.exports = router;

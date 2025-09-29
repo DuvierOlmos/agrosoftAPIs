@@ -1,35 +1,28 @@
 // middlewares/adminMiddleware.js
 
-const jwt = require('jsonwebtoken');
-const User = require('../models/user');
-const Rol = require('../models/rol');
+// Asumiremos que el ID_ROL para 'Administrador' es 1. 
+// Debes confirmar esto con los datos iniciales de tu tabla 'rol'.
+const ROL_ADMIN_ID = 1; 
 
-// Asegúrate de que esta variable de entorno esté configurada
-const JWT_SECRET = process.env.JWT_SECRET || 'tu_secreto_super_seguro';
-
-const adminMiddleware = async (req, res, next) => {
-  try {
-    const token = req.headers.authorization.split(' ')[1];
-    if (!token) {
-      return res.status(401).json({ message: 'Acceso no autorizado. No se proporcionó un token.' });
+const adminMiddleware = (req, res, next) => {
+    // 1. Verificar si el usuario está autenticado y tiene datos de usuario
+    if (!req.user || !req.user.id_rol) {
+        // Esto indica que el authMiddleware no se ejecutó o falló
+        return res.status(401).json({ 
+            message: 'Acceso denegado. Se requiere autenticación.' 
+        });
     }
 
-    const decodedToken = jwt.verify(token, JWT_SECRET);
-    
-    // Asume que el ID del usuario está en el token decodificado
-    const user = await User.findByPk(decodedToken.id_usuario, {
-      include: [Rol],
-    });
-
-    if (!user || user.Rol.nombre_rol !== 'admin') {
-      return res.status(403).json({ message: 'Acceso denegado. Se requiere un rol de administrador.' });
+    // 2. Verificar si el rol del usuario es el de Administrador
+    if (req.user.id_rol === ROL_ADMIN_ID) {
+        // El usuario es Administrador, permitir el acceso
+        next();
+    } else {
+        // El usuario no tiene permisos de Administrador
+        return res.status(403).json({ 
+            message: 'Acceso denegado. Se requiere rol de Administrador.' 
+        });
     }
-
-    req.user = user; // Adjunta el usuario a la solicitud para uso posterior
-    next();
-  } catch (error) {
-    res.status(401).json({ message: 'Token inválido o expirado.', error: error.message });
-  }
 };
 
 module.exports = adminMiddleware;

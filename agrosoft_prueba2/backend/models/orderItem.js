@@ -1,7 +1,7 @@
 // models/orderItem.js
 const { DataTypes } = require('sequelize');
 const sequelize = require('../db/db.config');
-const Order = require('./order');
+const Order = require('./pedido');
 const Product = require('./product');
 
 const OrderItem = sequelize.define('OrderItem', {

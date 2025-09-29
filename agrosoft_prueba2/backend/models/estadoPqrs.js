@@ -1,4 +1,4 @@
-// models/estadoPqrs.js
+// models/estado_pqrs.js
 const { DataTypes } = require('sequelize');
 const sequelize = require('../db/db.config');
 
@@ -8,10 +8,13 @@ const EstadoPqrs = sequelize.define('EstadoPqrs', {
     primaryKey: true,
     autoIncrement: true,
   },
-  nombre_estado_pqrs: {
+  nombre_estado: {
     type: DataTypes.STRING,
     allowNull: false,
-  },
+    unique: true,
+  },},{
+  tableName: 'estado_pqrs',
+  timestamps: false,
 });
 
 module.exports = EstadoPqrs;

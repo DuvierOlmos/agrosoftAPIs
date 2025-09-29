@@ -1,9 +1,6 @@
 // models/pqrs.js
 const { DataTypes } = require('sequelize');
 const sequelize = require('../db/db.config');
-const User = require('./user');
-const TipoPqrs = require('./tipoPqrs');
-const EstadoPqrs = require('./estadoPqrs');
 
 const Pqrs = sequelize.define('Pqrs', {
   id_pqrs: {
@@ -11,28 +8,63 @@ const Pqrs = sequelize.define('Pqrs', {
     primaryKey: true,
     autoIncrement: true,
   },
-  asunto_pqrs: {
+  
+  // Clave Foránea del usuario que crea la PQRS (Remitente)
+  id_usuario: { 
+    type: DataTypes.INTEGER,
+    allowNull: false,
+  },
+  
+  // Clave Foránea al tipo de PQRS (Petición, Queja, Reclamo, Sugerencia)
+  id_tipo_pqrs: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+  },
+  
+  asunto: {
     type: DataTypes.STRING,
     allowNull: false,
   },
-  descripcion_pqrs: {
+  descripcion: {
     type: DataTypes.TEXT,
     allowNull: false,
   },
-  fecha_envio_pqrs: {
+  
+  fecha_creacion: {
+    type: DataTypes.DATE,
+    defaultValue: DataTypes.NOW,
+    allowNull: false,
+  },
+  
+  // Clave Foránea al estado de la PQRS (Abierto, En Proceso, Cerrado)
+  id_estado_pqrs: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    defaultValue: 1, // Asumiendo que el ID 1 corresponde a 'Abierto'
+  },
+   fecha_ultima_actualizacion: {
     type: DataTypes.DATE,
     defaultValue: DataTypes.NOW,
   },
-  respuesta_admin: {
-    type: DataTypes.TEXT,
+  
+  // Gestión del Administrador:
+  respuesta_administrador: {
+    type: DataTypes.TEXT, 
+    allowNull: true, // Puede ser nulo hasta que se responda
   },
-  fecha_respuesta: {
-    type: DataTypes.DATE,
+  
+  // ID del administrador que responde la PQRS
+  id_administrador_respuesta: {
+    type: DataTypes.INTEGER,
+    allowNull: true, // Puede ser nulo hasta que un admin tome el caso
   },
-});
+  
+ 
 
-Pqrs.belongsTo(User, { foreignKey: 'id_usuario' });
-Pqrs.belongsTo(TipoPqrs, { foreignKey: 'id_tipo_pqrs' });
-Pqrs.belongsTo(EstadoPqrs, { foreignKey: 'id_estado_pqrs' });
+}, {
+  // Opciones del Modelo
+  tableName: 'pqrs',
+  timestamps: false,
+});
 
 module.exports = Pqrs;

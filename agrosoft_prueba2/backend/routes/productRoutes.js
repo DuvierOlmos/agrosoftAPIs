@@ -2,14 +2,27 @@
 const express = require('express');
 const router = express.Router();
 const productController = require('../controllers/productController');
-const authMiddleware = require('../middlewares/authMiddleware');
 const adminMiddleware = require('../middlewares/adminMiddleware');
 
-router.get('/', productController.getAllProducts);
-router.get('/:id', productController.getProductById);
+// Rutas de Administración (Acceso total para Admin)
 
-router.post('/', authMiddleware, adminMiddleware, productController.createProduct);
-router.put('/:id', authMiddleware, adminMiddleware, productController.updateProduct);
-router.delete('/:id', authMiddleware, adminMiddleware, productController.deleteProduct);
+// Obtener TODOS los productos (incluye pendientes y rechazados)
+router.get('/admin',  productController.getAllProductsAdmin);
+
+router.post('/admin/create',  productController.createProductAdmin);
+
+router.get('/admin/:id',  productController.getProductById);
+
+// Actualizar cualquier campo (incluye edición completa)
+router.put('/admin/update/:id',  productController.updateProductAdmin);
+
+// Ruta específica para la aprobación/rechazo
+router.patch('/admin/approve/:id',  productController.approveProduct);
+
+// Eliminar permanentemente
+router.delete('/admin/delete/:id',  productController.deleteProductAdmin);
+
+
+// (Nota: Las rutas para que el productor suba sus propios productos irán en otra sección)
 
 module.exports = router;

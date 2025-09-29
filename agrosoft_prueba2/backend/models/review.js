@@ -20,7 +20,11 @@ const Review = sequelize.define('Review', {
   fecha_comentario: {
     type: DataTypes.DATE,
     defaultValue: DataTypes.NOW,
-  },
+  }},{
+    tableName: comentario_resena,
+    timestamps: false
+
+
 });
 
 Review.belongsTo(User, { foreignKey: 'id_usuario' });

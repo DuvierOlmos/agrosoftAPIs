@@ -6,9 +6,9 @@ const authMiddleware = require('../middlewares/authMiddleware');
 const adminMiddleware = require('../middlewares/adminMiddleware');
 
 // Ruta para crear un nuevo tipo de descuento (solo para administradores)
-router.post('/', authMiddleware, adminMiddleware, tipoDescuentoController.createTipoDescuento);
+router.post('/create', tipoDescuentoController.createTipoDescuento);
 
 // Ruta para obtener todos los tipos de descuento (acceso público)
-router.get('/', tipoDescuentoController.getAllTipoDescuentos);
+router.get('/ver', tipoDescuentoController.getAllTipoDescuentos);
 
 module.exports = router;

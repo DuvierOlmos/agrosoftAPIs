@@ -2,9 +2,17 @@
 const express = require('express');
 const router = express.Router();
 const pqrsController = require('../controllers/pqrsController');
-const authMiddleware = require('../middlewares/authMiddleware');
+const authMiddleware = require('../middlewares/authMiddleware'); // Necesario para obtener req.user
+const adminMiddleware = require('../middlewares/adminMiddleware'); 
 
-router.post('/', authMiddleware, pqrsController.createPqrs);
-router.get('/', authMiddleware, pqrsController.getPqrsByUser);
+
+router.post('/admin/create', pqrsController.createPqrs); 
+
+
+router.get('/admin',  pqrsController.getAllPqrsAdmin); 
+router.get('/admin/:id_pqrs',  pqrsController.getPqrsById); 
+
+// PUT: Actualizar estado y respuesta (Solo Admin)
+router.put('/admin/update/:id_pqrs', pqrsController.updatePqrsAdmin); 
 
 module.exports = router;

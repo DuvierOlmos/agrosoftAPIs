@@ -1,4 +1,4 @@
-// models/tipoPqrs.js
+// models/tipo_pqrs.js
 const { DataTypes } = require('sequelize');
 const sequelize = require('../db/db.config');
 
@@ -8,10 +8,15 @@ const TipoPqrs = sequelize.define('TipoPqrs', {
     primaryKey: true,
     autoIncrement: true,
   },
-  nombre_tipo_pqrs: {
+  nombre_tipo: {
     type: DataTypes.STRING,
     allowNull: false,
+    unique: true,
   },
+}, {
+  // Opciones del Modelo
+  tableName: 'tipo_pqrs',
+  timestamps: false,
 });
 
 module.exports = TipoPqrs;
