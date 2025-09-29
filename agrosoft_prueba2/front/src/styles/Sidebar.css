@@ -1,0 +1,81 @@
+/* Sidebar */
+.sidebar {
+  width: 220px;
+  height: 100vh;
+  background: #1f2937;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  padding: 20px 10px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  transition: transform 0.3s ease;
+}
+
+.sidebar.collapsed {
+  transform: translateX(-100%);
+}
+
+.sidebar-title {
+  font-size: 20px;
+  margin-bottom: 20px;
+  text-align: center;
+  color: #60a5fa;
+}
+
+.sidebar nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar nav ul li {
+  margin: 15px 0;
+}
+
+.sidebar nav ul li a {
+  text-decoration: none;
+  color: #f9fafb;
+  font-size: 16px;
+  padding: 8px 12px;
+  display: block;
+  border-radius: 6px;
+  transition: background 0.3s;
+}
+
+.sidebar nav ul li a:hover {
+  background: #2563eb;
+  color: #fff;
+}
+
+/* Botón hamburguesa */
+.hamburger-btn {
+  position: fixed;
+  top: 5px;
+  left: 5px;
+  background: #2563eb;
+  border: none;
+  color: #fff;
+  font-size: 20px;
+  padding: 8px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  z-index: 1000;
+}
+
+.hamburger-btn:hover {
+  background: #1e40af;
+}
+
+/* Contenido principal */
+.main-content {
+  flex-grow: 1;
+  padding: 20px;
+  transition: margin-left 0.3s ease;
+}
+
+/* Cuando el sidebar está abierto */
+.main-content.shifted {
+  margin-left: 220px;
+}
