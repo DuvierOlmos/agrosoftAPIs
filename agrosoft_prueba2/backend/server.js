@@ -7,7 +7,14 @@ const dotenv = require('dotenv');
 
 // Cargar variables de entorno
 dotenv.config();
+const cors = require('cors');
+const app = express();
 
+app.use(cors({
+    origin: 'http://localhost:3000', // ⬅️ CAMBIA ESTO AL PUERTO EXACTO DE TU FRONTEND
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'], // Métodos permitidos
+    allowedHeaders: ['Content-Type', 'Authorization'], // Headers permitidos
+}));
 // --- 1. Importar la Conexión y las Asociaciones ---
 // Importamos la instancia de sequelize y aseguramos que las asociaciones se carguen
 const { sequelize, EstadoPedido } = require('./models/associations'); 
@@ -27,7 +34,8 @@ const estadoPedidoRoutes = require('./routes/estadoPedidoRoutes');
 
 
 
-const app = express();
+
+
 const PORT = process.env.PORT || 3001;
 
 // --- 3. Middlewares Globales ---

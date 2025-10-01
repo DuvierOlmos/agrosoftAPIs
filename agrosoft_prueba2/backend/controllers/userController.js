@@ -88,7 +88,7 @@ exports.createUserAdmin = async (req, res) => {
 exports.updateUserAdmin = async (req, res) => {
   try {
     const { id_usuario } = req.params;
-    const { password, id_rol, ...updateData } = req.body; // Separamos password y id_rol
+    const { password_hash, id_rol, ...updateData } = req.body; // Separamos password y id_rol
     
     // Si se proporciona una nueva contraseña, hashearla
     if (password) {

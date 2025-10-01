@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
+//import userService from "../services/userService"; 
 import { updateUser } from "../services/userService";
 import "../styles/UserEditForm.css";
 
-export default function UserEditForm({ show, onClose, user }) {
+export default function UserEditForm({ show, onClose, user, onSave}) {
   const [form, setForm] = useState({
     nombre_usuario: "",
     password_hash: "",
@@ -11,6 +12,9 @@ export default function UserEditForm({ show, onClose, user }) {
     documento_identidad: "",
     estado: "",
   });
+
+  const [loading, setLoading] = useState(false);
+  const [apiError, setApiError] = useState(null);
 
   // Roles disponibles (puedes traerlos del backend si quieres)
   const roles = [
@@ -117,7 +121,11 @@ export default function UserEditForm({ show, onClose, user }) {
           </select>
 
           <div className="form-actions">
-            <button type="submit" className="btn-primary">
+            <button type="submit" 
+                    className="btn-primary" 
+                    disabled={loading}>
+                    {loading ? 'Guardando...' : 'Guardar Cambios'},
+              
               Guardar Cambios
             </button>
             <button
