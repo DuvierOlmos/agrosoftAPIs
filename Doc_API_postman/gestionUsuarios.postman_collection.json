@@ -1,0 +1,156 @@
+{
+	"info": {
+		"_postman_id": "0024a52e-3f2b-4474-b4d7-55cc0a3e7306",
+		"name": "gestionUsuarios",
+		"description": "Módulo para gestionar Usuarios",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "47899577"
+	},
+	"item": [
+		{
+			"name": "crearUsuario",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"nombre_usuario\": \"admin7\",\r\n  \"password\": \"7894561\",\r\n  \"correo_electronico\": \"admin7@tienda.com\",\r\n  \"documento_identidad\": \"878451111\"\r\n  \r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3001/api/users/admin/create",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"api",
+						"users",
+						"admin",
+						"create"
+					]
+				},
+				"description": "Servicio para crear usuarios"
+			},
+			"response": []
+		},
+		{
+			"name": "verUsuarios",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3001/api/users/admin",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"api",
+						"users",
+						"admin"
+					]
+				},
+				"description": "Servicio para ver usuarios"
+			},
+			"response": []
+		},
+		{
+			"name": "editarUsuarios",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"id_usuario\": 59,\r\n  \"nombre_usuario\": \"admin5.tienda\",\r\n  \"correo_electronico\": \"admin5@tienda.com\",\r\n  \"documento_identidad\": \"12245678\",\r\n  \"estado\": \"inactivo\"\r\n  \r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3001/api/users/admin/update/59",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"api",
+						"users",
+						"admin",
+						"update",
+						"59"
+					]
+				},
+				"description": "Servicio para editar usuarios"
+			},
+			"response": []
+		},
+		{
+			"name": "verUnUsuario",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": " {\r\n    \"id_usuario\": 1,\r\n    \"nombre_usuario\": \"jose\",\r\n    \"correo_electronico\": \"jose.ramirez@example.com\",\r\n    \"id_rol\": 2,\r\n    \"documento_identidad\": \"100000021\",\r\n    \"estado\": \"inactivo\",\r\n}  \r\n"
+				},
+				"url": {
+					"raw": "http://localhost:3001/api/users/admin/65",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"api",
+						"users",
+						"admin",
+						"65"
+					]
+				},
+				"description": "Servicio para ver un usuario por id"
+			},
+			"response": []
+		},
+		{
+			"name": "eliminarUsuario",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"id_usuario\": 59,\r\n  \"nombre_usuario\": \"admin5.tienda\",\r\n  \"correo_electronico\": \"admin5@tienda.com\",\r\n  \"documento_identidad\": \"12245678\",\r\n  \"estado\": \"inactivo\"\r\n  \r\n}\r\n"
+				},
+				"url": {
+					"raw": "http://localhost:3001/api/users/admin/delete/65",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"api",
+						"users",
+						"admin",
+						"delete",
+						"65"
+					]
+				},
+				"description": "Servicio para eliminar usuarios"
+			},
+			"response": []
+		}
+	]
+}

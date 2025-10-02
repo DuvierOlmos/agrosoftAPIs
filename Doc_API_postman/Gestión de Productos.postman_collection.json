@@ -1,0 +1,146 @@
+{
+	"info": {
+		"_postman_id": "c9ecd3e3-f441-4e99-8ace-785f957bb303",
+		"name": "Gestión de Productos",
+		"description": "Módulo para gestionar productos",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "47899577"
+	},
+	"item": [
+		{
+			"name": "verProductos",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3001/api/products/admin/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"api",
+						"products",
+						"admin",
+						""
+					]
+				},
+				"description": "Servicio para ver todos los productos"
+			},
+			"response": []
+		},
+		{
+			"name": "verProductoPorId",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3001/api/products/admin/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"api",
+						"products",
+						"admin",
+						"1"
+					]
+				},
+				"description": "Servicio para ver productos por id"
+			},
+			"response": []
+		},
+		{
+			"name": "crearProducto",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"nombre_producto\": \"prueba1\",\r\n        \"descripcion_producto\": \"prueba1 \",\r\n        \"precio_unitario\": \"1.50\",\r\n        \"unidad_medida\": \"unidad\",\r\n        \"url_imagen\": \"https://placehold.co/200x200/3CB371/FFFFFF?text=Lechuga\",\r\n        \"id_SubCategoria\": 17,        \r\n        \"cantidad\": 30\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3001/api/products/admin/create",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"api",
+						"products",
+						"admin",
+						"create"
+					]
+				},
+				"description": "Servicio para crear productos"
+			},
+			"response": []
+		},
+		{
+			"name": "editarProducto",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id_producto\": 13,\r\n    \"nombre_producto\": \"prueba1-Prueba2-prueba4\",\r\n    \"descripcion_producto\": \"prueba1-Prueba2-prueba4 \",\r\n    \"precio_unitario\": \"1.50\",\r\n    \"unidad_medida\": \"unidad\",\r\n    \"url_imagen\": \"https://placehold.co/200x200/3CB371/FFFFFF?text=Lechuga\",\r\n    \"id_SubCategoria\": 17,\r\n    \"estado_producto\":\"Activo\",\r\n    \"cantidad\": 30\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3001/api/products/admin/update/13",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"api",
+						"products",
+						"admin",
+						"update",
+						"13"
+					]
+				},
+				"description": "Servicio para editar productos"
+			},
+			"response": []
+		},
+		{
+			"name": "eliminarProducto",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3001/api/products/admin/delete/13",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"api",
+						"products",
+						"admin",
+						"delete",
+						"13"
+					]
+				},
+				"description": "Servicio para eliminar productos"
+			},
+			"response": []
+		}
+	]
+}

@@ -1,0 +1,145 @@
+{
+	"info": {
+		"_postman_id": "26404c6d-94f8-4b5f-b069-7b85e7ae9997",
+		"name": "Gestión de categorias",
+		"description": "Módulo para gestionar las categorias",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "47899577"
+	},
+	"item": [
+		{
+			"name": "verCategorias",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3001/api/categories/admin",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"api",
+						"categories",
+						"admin"
+					]
+				},
+				"description": "Servicio para ver todas las categorias"
+			},
+			"response": []
+		},
+		{
+			"name": "verCategoriaPorId",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3001/api/categories/admin/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"api",
+						"categories",
+						"admin",
+						"1"
+					]
+				},
+				"description": "Servicio para ver las categorias por id"
+			},
+			"response": []
+		},
+		{
+			"name": "crearCategoria",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id_categoria\": 101,\r\n    \"nombre_categoria\": \"prueba3\",\r\n    \"SubCategorias\": [\r\n        {\r\n            \"id_SubCategoria\": 1,\r\n            \"nombre\": \"prueba1\",\r\n            \"id_categoria\": 100\r\n        },\r\n        {\r\n            \"id_SubCategoria\": 2,\r\n            \"nombre\": \"prueba1\",\r\n            \"id_categoria\": 100\r\n        },\r\n        {\r\n            \"id_SubCategoria\": 3,\r\n            \"nombre\": \"prueba1\",\r\n            \"id_categoria\": 100\r\n        },\r\n        {\r\n            \"id_SubCategoria\": 4,\r\n            \"nombre\": \"prueba1\",\r\n            \"id_categoria\": 100\r\n        }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3001/api/categories/admin/create",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"api",
+						"categories",
+						"admin",
+						"create"
+					]
+				},
+				"description": "Servicio para crear categorias"
+			},
+			"response": []
+		},
+		{
+			"name": "editarCategoria",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id_categoria\": 100,\r\n    \"nombre_categoria\": \"prueba1-Prueba2-prueba4\",\r\n    \"SubCategorias\": [\r\n        {\r\n            \"id_SubCategoria\": 1,\r\n            \"nombre\": \"prueba1\",\r\n            \"id_categoria\": 100\r\n        },\r\n        {\r\n            \"id_SubCategoria\": 2,\r\n            \"nombre\": \"prueba1\",\r\n            \"id_categoria\": 100\r\n        },\r\n        {\r\n            \"id_SubCategoria\": 3,\r\n            \"nombre\": \"prueba1\",\r\n            \"id_categoria\": 100\r\n        },\r\n        {\r\n            \"id_SubCategoria\": 4,\r\n            \"nombre\": \"prueba1\",\r\n            \"id_categoria\": 100\r\n        }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3001/api/categories/admin/update/100",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"api",
+						"categories",
+						"admin",
+						"update",
+						"100"
+					]
+				},
+				"description": "Servicio para editar categorias"
+			},
+			"response": []
+		},
+		{
+			"name": "eliminarCategoria",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3001/api/categories/admin/delete/101",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"api",
+						"categories",
+						"admin",
+						"delete",
+						"101"
+					]
+				},
+				"description": "Servicio para eliminar categorias"
+			},
+			"response": []
+		}
+	]
+}

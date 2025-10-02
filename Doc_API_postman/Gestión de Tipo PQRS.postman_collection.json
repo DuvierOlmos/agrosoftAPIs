@@ -1,0 +1,154 @@
+{
+	"info": {
+		"_postman_id": "9f56ece0-d8ec-4ad8-910b-b2584318cb3c",
+		"name": "Gestión de Tipo PQRS",
+		"description": "Módulo para gestionar los tipos de pqrs",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "47899577"
+	},
+	"item": [
+		{
+			"name": "verTiposDePqrs",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{   \r\n   \"id_pqrs\":1,\r\n  \"id_estado_pqrs\": 4,\r\n  \"respuesta_administrador\": \"Estimado usuario, revisamos su caso y confirmamos que la mercancía faltante será enviada en el próximo ciclo de distribución. Recibirá un email de confirmación en 24 horas. Caso cerrado.\",\r\n  \"id_usuario\": 11\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:3001/api/tipoPqrs/admin/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"api",
+						"tipoPqrs",
+						"admin",
+						""
+					]
+				},
+				"description": "Servicio para ver todos los tipos de PQRS"
+			},
+			"response": []
+		},
+		{
+			"name": "verTipoPqrsPorId",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{   \r\n   \"id_pqrs\":1,\r\n  \"id_estado_pqrs\": 4,\r\n  \"respuesta_administrador\": \"Estimado usuario, revisamos su caso y confirmamos que la mercancía faltante será enviada en el próximo ciclo de distribución. Recibirá un email de confirmación en 24 horas. Caso cerrado.\",\r\n  \"id_usuario\": 11\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:3001/api/tipoPqrs/admin/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"api",
+						"tipoPqrs",
+						"admin",
+						"1"
+					]
+				},
+				"description": "Servicio para ver tipo de PQRS por id"
+			},
+			"response": []
+		},
+		{
+			"name": "crearTipoPqrs",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[{\r\n  \"nombre_tipo\": \"Aclaración\",\r\n  \"descripcion_tipo\": \"Solicitud de información adicional sobre una política o proceso.\"\r\n}]"
+				},
+				"url": {
+					"raw": "http://localhost:3001/api/tipoPqrs/admin/create",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"api",
+						"tipoPqrs",
+						"admin",
+						"create"
+					]
+				},
+				"description": "Servicio para crear tipo de PQRS"
+			},
+			"response": []
+		},
+		{
+			"name": "editarTipoPQRS",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[{\r\n  \"nombre_tipo\": \"Aclaración\",\r\n  \"descripcion_tipo\": \"Solicitud de información adicional sobre una política o proceso.\"\r\n}]"
+				},
+				"url": {
+					"raw": "http://localhost:3001/api/tipoPqrs/admin/update/5",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"api",
+						"tipoPqrs",
+						"admin",
+						"update",
+						"5"
+					]
+				},
+				"description": "Servicio para editar tipo de PQRS"
+			},
+			"response": []
+		},
+		{
+			"name": "eliminarTipoPQRS",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[{\r\n  \"nombre_tipo\": \"Aclaración\",\r\n  \"descripcion_tipo\": \"Solicitud de información adicional sobre una política o proceso.\"\r\n}]"
+				},
+				"url": {
+					"raw": "http://localhost:3001/api/tipoPqrs/admin/delete/6",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"api",
+						"tipoPqrs",
+						"admin",
+						"delete",
+						"6"
+					]
+				},
+				"description": "Servicio para eliminar tipo de PQRS"
+			},
+			"response": []
+		}
+	]
+}

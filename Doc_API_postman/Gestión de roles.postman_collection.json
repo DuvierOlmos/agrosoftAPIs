@@ -1,0 +1,150 @@
+{
+	"info": {
+		"_postman_id": "6e2cdde6-abfd-493b-b4b0-fe0ed8025339",
+		"name": "Gestión de roles",
+		"description": "Módulo para gestionar Roles",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "47899577"
+	},
+	"item": [
+		{
+			"name": "verRoles",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3001/api/roles/admin/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"api",
+						"roles",
+						"admin",
+						""
+					]
+				},
+				"description": "Servicio para ver todos los roles"
+			},
+			"response": []
+		},
+		{
+			"name": "verRolPorId",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3001/api/roles/admin/3",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"api",
+						"roles",
+						"admin",
+						"3"
+					]
+				},
+				"description": "Servicio para ver roles por id"
+			},
+			"response": []
+		},
+		{
+			"name": "crearRol",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"id_rol\": 5,\r\n        \"nombre_rol\": \"prueba2\",\r\n        \"descripcion_rol\": \"prueba 2 para creacion de rol\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3001/api/roles/admin/create",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"api",
+						"roles",
+						"admin",
+						"create"
+					]
+				},
+				"description": "Servicio para crear roles"
+			},
+			"response": []
+		},
+		{
+			"name": "actualizarRol",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": " {\r\n    \"id_rol\": 5,\r\n    \"nombre_rol\": \"prueba3\",\r\n    \"descripcion_rol\": \"prueba 3 para creacion de rol\"\r\n  }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3001/api/roles/admin/update/5",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"api",
+						"roles",
+						"admin",
+						"update",
+						"5"
+					]
+				},
+				"description": "Servicio para actualizar roles"
+			},
+			"response": []
+		},
+		{
+			"name": "eliminarRol",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": " {\r\n    \"id_rol\": 5,\r\n    \"nombre_rol\": \"prueba3\",\r\n    \"descripcion_rol\": \"prueba 3 para creacion de rol\"\r\n  }"
+				},
+				"url": {
+					"raw": "http://localhost:3001/api/roles/admin/delete/5",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"api",
+						"roles",
+						"admin",
+						"delete",
+						"5"
+					]
+				},
+				"description": "Servicio para eliminar roles"
+			},
+			"response": []
+		}
+	]
+}
