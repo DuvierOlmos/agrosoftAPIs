@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-// 🟢 Importamos el servicio que hace las llamadas al backend
+
 import userService from "../services/userService"; 
 import UserEditForm from "./UserEditForm";
 import ConfirmDelete from "./ConfirmDelete";
@@ -9,7 +9,7 @@ import "../styles/UserTable.css";
 const ROLE_MAP = {
   1: "Cliente",
   2: "Administrador",
-  3: "Productor/Agricultor",
+  3: "Productor",
 };
 
 export default function UserManagementTable() {
@@ -68,13 +68,13 @@ export default function UserManagementTable() {
   };
 
   // Lógica para manejar la eliminación (se pasa al ConfirmDelete)
-  const handleDeleteConfirm = async (userId) => {
+  const handleDeleteConfirm = async (id_usuario) => {
     try {
-      await userService.deleteUser(userId);
+      await userService.deleteUser(id_usuario);
       
       setDeleteId(null); // Cierra el modal
       alert('Usuario eliminado con éxito!');
-      await fetchUsers(); // ⬅️ RECARGAR DATOS para que desaparezca de la tabla
+      await fetchUsers();
     } catch (err) {
       alert(`Error al eliminar: ${err}`);
     }

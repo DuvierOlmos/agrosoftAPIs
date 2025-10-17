@@ -1,6 +1,6 @@
 // features/users/services/userService.js
 
-const API_URL = "http://localhost:3001/api/users"; // ⚡ cambia la URL a la de tu backend
+const API_URL = "http://localhost:3001/api/pqrs"; // ⚡ cambia la URL a la de tu backend
 
 // === READ ===
 export async function getUsers() {

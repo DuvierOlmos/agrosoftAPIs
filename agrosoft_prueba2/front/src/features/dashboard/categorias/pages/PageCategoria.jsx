@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import UserTable from "../components/Table";
+import Table from "../components/Table";
 import UserForm from "../components/Form";
 import "../styles/PageCategoria.css";
 
@@ -15,7 +15,7 @@ export default function PageCategoria() {
         </button>
       </header>
 
-      <UserTable />
+      <Table />
       
 
       {/* modal_user siempre montado, pero visible según showForm */}

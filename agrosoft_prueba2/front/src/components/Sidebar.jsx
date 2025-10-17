@@ -24,11 +24,9 @@ export default function Sidebar({ onToggle }) {
           <ul>
             <li><Link to="/Dahsboard/user">Usuarios</Link></li>
             <li><Link to="/Dahsboard/categorias">Categorías</Link></li>
-            <li><Link to="/Dahsboard/descuentos">Descuentos</Link></li>
-            <li><Link to="/Dahsboard/ordenes">Órdenes</Link></li>
             <li><Link to="/Dahsboard/pqrs">PQRS</Link></li>
-            <li><Link to="/Dahsboard/products">Productos</Link></li>
             <li><Link to="/Dahsboard/roles">Roles</Link></li>
+            <li><Link to="/Dahsboard/roles">Reportes</Link></li>
           </ul>
         </nav>
       </aside>

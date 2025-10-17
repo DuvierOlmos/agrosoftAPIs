@@ -2,10 +2,10 @@ import React, { useState, useEffect } from "react";
 import { updateCategory } from "../services/categoryService";
 import "../styles/UserEditForm.css"; // puedes duplicar a CategoryEditForm.css si quieres
 
-export default function CategoryEditForm({ show, onClose, category }) {
+export default function CategoryEditForm({ show, onClose, category, onSave }) {
   const [form, setForm] = useState({
+    id_categoria: "",
     nombre_categoria: "",
-    estado: "",
   });
 
   // Cuando cambia la categoría, rellenamos el form
@@ -13,7 +13,7 @@ export default function CategoryEditForm({ show, onClose, category }) {
     if (category) {
       setForm({
         nombre_categoria: category.nombre_categoria || "",
-        estado: category.estado || "activo",
+        
       });
     }
   }, [category]);
@@ -27,7 +27,9 @@ export default function CategoryEditForm({ show, onClose, category }) {
     try {
       const updated = await updateCategory(category.id_categoria, form);
       console.log("Categoría actualizada:", updated);
+      onSave();
       onClose();
+      
     } catch (err) {
       console.error("Error al actualizar categoría:", err);
       alert("No se pudo actualizar la categoría");
@@ -48,16 +50,7 @@ export default function CategoryEditForm({ show, onClose, category }) {
             required
           />
 
-          <label>Estado</label>
-          <select
-            name="estado"
-            value={form.estado}
-            onChange={handleChange}
-            required
-          >
-            <option value="activo">Activo</option>
-            <option value="inactivo">Inactivo</option>
-          </select>
+          
 
           <div className="form-actions">
             <button type="submit" className="btn-primary">

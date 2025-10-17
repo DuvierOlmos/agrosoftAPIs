@@ -2,10 +2,9 @@ import React, { useState } from "react";
 import { createCategory } from "../services/categoryService";
 import "../styles/CategoryForm.css";
 
-export default function CategoryForm({ show, onClose }) {
+export default function CategoryForm({ show, onClose, onSave }) {
   const [form, setForm] = useState({
     nombre_categoria: "",
-    estado: "",
   });
 
   const handleChange = (e) => {
@@ -18,6 +17,7 @@ export default function CategoryForm({ show, onClose }) {
       await createCategory(form);
       console.log("Categoría creada:", form);
       onClose();
+     
     } catch (err) {
       console.error("Error al crear categoría:", err);
     }
@@ -37,17 +37,7 @@ export default function CategoryForm({ show, onClose }) {
             required
           />
 
-          <label>Estado</label>
-          <select
-            name="estado"
-            value={form.estado}
-            onChange={handleChange}
-            required
-          >
-            <option value="">Seleccione estado</option>
-            <option value="activo">Activo</option>
-            <option value="inactivo">Inactivo</option>
-          </select>
+      
 
           <div className="form-actions">
             <button type="submit" className="btn-primary">Guardar</button>

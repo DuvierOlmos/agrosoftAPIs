@@ -28,7 +28,7 @@ export default function UserEditForm({ show, onClose, user, onSave}) {
     if (user) {
       setForm({
         nombre_usuario: user.nombre_usuario || "",
-        password_hash: "", // 👈 opcional: dejar vacío si no se cambia
+        password_hash: "", 
         correo_electronico: user.correo_electronico || "",
         id_rol: user.id_rol || "",
         documento_identidad: user.documento_identidad || "",
@@ -46,6 +46,8 @@ export default function UserEditForm({ show, onClose, user, onSave}) {
     try {
       const updated = await updateUser(user.id_usuario, form);
       console.log("Usuario actualizado:", updated);
+      alert("Usuario Actualizado");
+      
       onClose();
     } catch (err) {
       console.error("Error al actualizar:", err);
