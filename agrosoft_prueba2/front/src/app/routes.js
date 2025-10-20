@@ -3,7 +3,9 @@ import { useState } from "react";
 import Sidebar from "../components/Sidebar";
 import PageUser from "../features/dashboard/user/pages/PageUser";
 import PageCategoria from "../features/dashboard/categorias/pages/PageCategoria";
-import PageDescuentos from "../features/dashboard/descuentos/pages/PageDescuentos";
+import PagePqrs from "../features/dashboard/pqrs/pages/pagePqrs";
+import PageTipoPqrs from "../features/dashboard/tipoPqrs/pages/pageTipoPqrs";
+import PageRoles from "../features/dashboard/roles/pages/PageRoles"; 
 
 export default function AppRoutes() {
   const [sidebarOpen, setSidebarOpen] = useState(true);
@@ -18,11 +20,10 @@ export default function AppRoutes() {
           <Routes>
             <Route path="/Dahsboard/user" element={<PageUser />} />
             <Route path="/Dahsboard/categorias" element={<PageCategoria />} />
-            <Route path="/Dahsboard/descuentos" element={<PageDescuentos />} />
-            <Route path="/Dahsboard/ordenes" element={<h1>Página de Órdenes</h1>} />
-            <Route path="/Dahsboard/pqrs" element={<h1>Página de PQRS</h1>} />
-            <Route path="/Dahsboard/products" element={<h1>Página de Productos</h1>} />
-            <Route path="/Dahsboard/roles" element={<h1>Página de Roles</h1>} />
+            <Route path="/Dahsboard/pqrs" element={<PagePqrs />} />
+            <Route path="/Dahsboard/tipoPqrs" element={<PageTipoPqrs />} />
+            <Route path="/Dahsboard/inventarios" element={<h1>Página de Productos</h1>} />
+            <Route path="/Dahsboard/roles" element={<PageRoles/>} />
           </Routes>
         </main>
       </div>

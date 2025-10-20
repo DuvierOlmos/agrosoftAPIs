@@ -1,13 +1,10 @@
-// controllers/pqrsController.js
+
 const Pqrs = require('../models/pqrs');
 const User = require('../models/user');
-// Asumo que tienes un modelo para el Estado, si no, usa un campo ENUM o una tabla simple.
+
 const EstadoPqrs = require('../models/estadoPqrs'); 
 const TipoPqrs = require ('../models/tipoPqrs');
 
-// =================================================================
-// FUNCIONES PÚBLICAS (Permitir al usuario crear una PQRS)
-// =================================================================
 
 // 1. Crear Nueva PQRS
 exports.createPqrs = async (req, res) => {
@@ -16,8 +13,7 @@ exports.createPqrs = async (req, res) => {
     const id_usuario = req.params.id_usuario; 
     const {id_tipo_pqrs, asunto, descripcion } = req.body;
 
-    // 2. Crear el registro en la base de datos
-    // Nota: El id_estado_pqrs y fecha_creacion se establecen por defecto en el modelo
+    
     const newPqrsRecord = await Pqrs.create({
       id_usuario,
       id_tipo_pqrs,
@@ -25,19 +21,16 @@ exports.createPqrs = async (req, res) => {
       descripcion,
     });
     
-    // 3. Obtener el ID del nuevo registro para la consulta completa
+   
     const newPqrsId = newPqrsRecord.id_pqrs;
-
-    // 4. Consultar el registro recién creado, incluyendo todas las asociaciones
     const newPqrs = await Pqrs.findByPk(newPqrsId, {
       include: [
-        // 1. Remitente
         {
           model: User,
           as: 'Remitente', 
           attributes: ['id_usuario', 'nombre_usuario', 'correo_electronico']
         },
-        // 2. Administrador de Respuesta (Puede ser null inicialmente)
+        // 2. Administrador de Respuesta
         {
           model: User,
           as: 'AdminRespuesta', 
@@ -47,13 +40,13 @@ exports.createPqrs = async (req, res) => {
         {
           model: TipoPqrs,
           as: 'Tipo', 
-          attributes: ['id_tipo_pqrs', 'nombre_tipo'] // Añadir nombre_tipo para más utilidad
+          attributes: ['id_tipo_pqrs', 'nombre_tipo'] 
         },
         // 4. Estado de la PQRS
         {
           model: EstadoPqrs,
           as: 'EstadoPqrs', 
-          attributes: ['id_estado_pqrs', 'nombre_estado'] // Añadir nombre_estado
+          attributes: ['id_estado_pqrs', 'nombre_estado']
         }
       ]
     });
@@ -67,13 +60,7 @@ exports.createPqrs = async (req, res) => {
     res.status(500).json({ error: 'Error al crear la PQRS', details: error.message });
   }
 };
-
-
-// =================================================================
-// FUNCIONES DE ADMINISTRACIÓN (Leer, Responder y Cerrar)
-// =================================================================
-
-// 2. Obtener TODAS las PQRS (Vista de Administrador)
+// 2. Obtener TODAS las PQRS 
 exports.getAllPqrsAdmin = async (req, res) => {
   try {
     const pqrsList = await Pqrs.findAll({
@@ -99,14 +86,16 @@ exports.updatePqrsAdmin = async (req, res) => {
     const { id_pqrs } = req.params;
     // id_administrador_respuesta debe venir del token del Admin (req.user.id_usuario)
     //const id_usuario = req.user.id_usuario; 
+    const body = req.body || {};
     
     // Los campos que el admin puede actualizar
-    const { id_estado_pqrs, respuesta_administrador } = req.body;
+    const { id_estado_pqrs, respuesta_administrador,id_administrador_respuesta } = body;
 
     const [updated] = await Pqrs.update(
       { 
         id_estado_pqrs, 
         respuesta_administrador, 
+        id_administrador_respuesta,
         //id_usuario,
         fecha_ultima_actualizacion: new Date(), // Actualizamos la fecha de gestión
       }, 
@@ -132,8 +121,6 @@ exports.getPqrsById = async (req, res) => {
   try {
     const { id_pqrs } = req.params;
     
-    // Opcional: Si el usuario NO es admin, se debe verificar que req.user.id_usuario sea igual a pqrs.id_usuario
-    // Aquí la dejamos abierta para el Admin y la proteges con el middleware.
 
     const pqrs = await Pqrs.findByPk(id_pqrs, {
       include: [

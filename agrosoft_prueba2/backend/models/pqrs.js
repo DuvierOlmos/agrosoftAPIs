@@ -40,7 +40,7 @@ const Pqrs = sequelize.define('Pqrs', {
   id_estado_pqrs: {
     type: DataTypes.INTEGER,
     allowNull: false,
-    defaultValue: 1, // Asumiendo que el ID 1 corresponde a 'Abierto'
+    defaultValue: 1,
   },
    fecha_ultima_actualizacion: {
     type: DataTypes.DATE,
@@ -56,7 +56,7 @@ const Pqrs = sequelize.define('Pqrs', {
   // ID del administrador que responde la PQRS
   id_administrador_respuesta: {
     type: DataTypes.INTEGER,
-    allowNull: true, // Puede ser nulo hasta que un admin tome el caso
+    allowNull: true, 
   },
   
  

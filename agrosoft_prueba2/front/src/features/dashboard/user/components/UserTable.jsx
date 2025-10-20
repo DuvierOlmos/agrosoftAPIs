@@ -3,9 +3,8 @@ import React, { useState, useEffect } from "react";
 import userService from "../services/userService"; 
 import UserEditForm from "./UserEditForm";
 import ConfirmDelete from "./ConfirmDelete";
-import "../styles/UserTable.css";
+import "../../../../styles/UserTable.css";
 
-// Mapeo de Roles: IMPORTANTE: Ajusta estos IDs (1, 2, 3) para que coincidan con tu tabla 'roles'
 const ROLE_MAP = {
   1: "Cliente",
   2: "Administrador",
@@ -13,28 +12,25 @@ const ROLE_MAP = {
 };
 
 export default function UserManagementTable() {
-  // 1. ESTADOS PARA LOS DATOS Y LA INTERFAZ
-  const [users, setUsers] = useState([]); // ⬅️ Inicia vacío, se llenará con la API
-  const [loading, setLoading] = useState(true); // Estado de carga
-  const [error, setError] = useState(null); // Estado para errores de API
+
+  const [users, setUsers] = useState([]); 
+  const [loading, setLoading] = useState(true); 
+  const [error, setError] = useState(null); 
   
   // Estados para los modales
   const [editUser, setEditUser] = useState(null);
   const [deleteId, setDeleteId] = useState(null);
+  //filtros
+  const [searchTerm, setSearchTerm] = useState("");
 
-  // ----------------------------------------------------------------------
-  // LÓGICA DE CARGA DE DATOS DESDE LA API
-  // ----------------------------------------------------------------------
 
   const fetchUsers = async () => {
     try {
       setLoading(true);
-      setError(null);
-      
-      // ➡️ LLAMADA AL BACKEND: Usa el servicio para obtener los datos
+      setError(null);     
       const data = await userService.getUsers();
       
-      setUsers(data); // Actualiza el estado con los datos de la base de datos
+      setUsers(data); 
     } catch (err) {
       console.error("Error al cargar usuarios:", err);
       // Muestra un mensaje amigable al usuario
@@ -43,36 +39,27 @@ export default function UserManagementTable() {
       setLoading(false);
     }
   };
-
   useEffect(() => {
     fetchUsers();
-    // El array vacío [] asegura que la función se ejecute SOLO una vez al montar el componente
   }, []); 
 
-  // ----------------------------------------------------------------------
-  // HANDLERS PARA MODIFICAR / ELIMINAR (Llaman a la API y recargan la lista)
-  // ----------------------------------------------------------------------
-
-  // Lógica para manejar la actualización (se pasa al UserEditForm)
   const handleUpdate = async (updatedData) => {
-    // Ejemplo de llamada a la API (deberías refinar qué campos actualizas)
     try {
         await userService.updateUserRole(updatedData.id_usuario, updatedData.id_rol);
         
-        setEditUser(null); // Cierra el modal
+        setEditUser(null);
         alert('Usuario actualizado con éxito!');
-        await fetchUsers(); // ⬅️ RECARGAR DATOS para ver el cambio
+        await fetchUsers();
     } catch (err) {
         alert(`Error al actualizar: ${err}`);
     }
   };
 
-  // Lógica para manejar la eliminación (se pasa al ConfirmDelete)
   const handleDeleteConfirm = async (id_usuario) => {
     try {
       await userService.deleteUser(id_usuario);
       
-      setDeleteId(null); // Cierra el modal
+      setDeleteId(null);
       alert('Usuario eliminado con éxito!');
       await fetchUsers();
     } catch (err) {
@@ -81,10 +68,8 @@ export default function UserManagementTable() {
   };
 
 
-  // ----------------------------------------------------------------------
-  // RENDERIZADO CONDICIONAL
-  // ----------------------------------------------------------------------
-  
+
+
   if (loading) {
     return <div className="loading-message">Cargando usuarios desde la base de datos...</div>;
   }
@@ -108,7 +93,6 @@ export default function UserManagementTable() {
           </tr>
         </thead>
         <tbody>
-          {/* ➡️ Mapeamos el estado 'users' que ahora contiene los datos del backend */}
           {users.length > 0 ? (
             users.map((u) => (
               <tr key={u.id_usuario}>
@@ -116,7 +100,6 @@ export default function UserManagementTable() {
                 <td>{u.nombre_usuario}</td>
                 <td>{u.correo_electronico}</td>
                 <td>{u.documento_identidad || "N/A"}</td>
-                {/* Usamos el mapa para traducir el ID de rol a nombre */}
                 <td>{ROLE_MAP[u.id_rol] || "Desconocido"}</td> 
                 <td>{u.estado || "N/A"}</td>
                 <td>
@@ -143,14 +126,14 @@ export default function UserManagementTable() {
         </tbody>
       </table>
 
-      {/* Modales - Ahora pasan la función de manejo de API */}
       {editUser && (
         <UserEditForm
           show={!!editUser}
           user={editUser}
-          roles={ROLE_MAP} // Pasamos el mapa de roles para el selector
+          roles={ROLE_MAP} 
           onClose={() => setEditUser(null)}
-          onSave={handleUpdate} // ⬅️ Nuevo prop para guardar y actualizar la tabla
+          onSave={handleUpdate} 
+          
         />
       )}
       {deleteId && (
@@ -158,7 +141,8 @@ export default function UserManagementTable() {
           show={!!deleteId}
           userId={deleteId}
           onClose={() => setDeleteId(null)}
-          onConfirm={handleDeleteConfirm} // ⬅️ Nuevo prop para confirmar eliminación
+          onConfirm={handleDeleteConfirm}
+          onSave={fetchUsers}
         />
       )}
     </div>

@@ -9,6 +9,7 @@ const dotenv = require('dotenv');
 dotenv.config();
 const cors = require('cors');
 const app = express();
+app.use(express.json());
 
 app.use(cors({
     origin: 'http://localhost:3000', // ⬅️ CAMBIA ESTO AL PUERTO EXACTO DE TU FRONTEND
@@ -40,7 +41,7 @@ const PORT = process.env.PORT || 3001;
 
 // --- 3. Middlewares Globales ---
 app.use(bodyParser.json());
-app.use(express.json());
+
 
 
 // --- 4. Conexión y Sincronización de Rutas ---
@@ -50,17 +51,16 @@ app.get('/api/status', (req, res) => {
     res.json({ message: 'API Agrosoft está funcionando.' });
 });
 
-// Nota: Asume que tienes un authMiddleware global o lo aplicas donde lo necesites.
-// En este ejemplo, el adminMiddleware se aplica DENTRO de cada archivo de rutas.
-
-// Rutas de Módulos del Administrador (prefijo /api/admin)
+// Rutas de Módulos del Administrador
 app.use('/api/roles', rolRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/categories', categoriaRoutes);
-app.use('/api/discounts', descuentoRoutes);
+
+/*app.use('/api/discounts', descuentoRoutes);
 app.use('/api/product-discounts', productoDescuentoRoutes);
 app.use('/api/products', productRoutes);
-app.use('/api/orders', pedidoRoutes);
+app.use('/api/orders', pedidoRoutes);*/
+
 app.use('/api/pqrs', pqrsRoutes);
 app.use('/api/tipoPqrs', tipoPqrsRoutes);
 app.use('/api/estadoPedido', estadoPedidoRoutes);
@@ -70,7 +70,7 @@ app.use('/api/estadoPqrs', estadoPqrsRoutes);
 
 
 
-// --- 5. Sincronización de Base de Datos e Inicio del Servidor ---
+// --- 5. Sincronización de Base de Datos 
 sequelize.sync({ force: false }).then(() => {
     console.log('Base de datos sincronizada correctamente.');
     app.listen(PORT, () => {
@@ -78,5 +78,4 @@ sequelize.sync({ force: false }).then(() => {
     });
 }).catch(err => {
     console.error('Error al sincronizar la base de datos:', err.message);
-    // console.error(err); // Descomentar para ver el error completo
 });

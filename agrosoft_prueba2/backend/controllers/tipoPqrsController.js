@@ -1,34 +1,25 @@
-// controllers/tipoPqrsController.js
+
 const TipoPqrs = require('../models/tipoPqrs');
-
-// 1. Crear Nuevo Tipo (Solo Admin)
-// controllers/tipoPqrsController.js (Función mejorada)
-
-// controllers/tipoPqrsController.js (Función mejorada)
 
 exports.createTipo = async (req, res) => {
   try {
     const { nombre_tipo } = req.body;
-
-    // Validación explícita de campos obligatorios
     if (!nombre_tipo || typeof nombre_tipo !== 'string' || nombre_tipo.trim() === '') {
       return res.status(400).json({ 
         message: 'El campo "nombre_tipo" es obligatorio y no puede estar vacío.' 
       });
     }
-
     const newTipo = await TipoPqrs.create(req.body);
     res.status(201).json(newTipo);
   } catch (error) {
     if (error.name === 'SequelizeUniqueConstraintError') {
       return res.status(409).json({ message: 'Este nombre de tipo de PQRS ya existe.' });
     }
-    // Para otros errores de DB
+   
     res.status(500).json({ error: 'Error al crear el tipo de PQRS', details: error.message });
   }
 };
 
-// 2. Obtener Todos los Tipos (Público/Admin - Necesario para formularios)
 exports.getAllTipos = async (req, res) => {
   try {
     const tipos = await TipoPqrs.findAll({
@@ -40,7 +31,7 @@ exports.getAllTipos = async (req, res) => {
   }
 };
 
-// 3. Obtener Tipo por ID (Público/Admin)
+
 exports.getTipoById = async (req, res) => {
   try {
     const tipo = await TipoPqrs.findByPk(req.params.id_tipo_pqrs);
@@ -53,7 +44,7 @@ exports.getTipoById = async (req, res) => {
   }
 };
 
-// 4. Actualizar Tipo (Solo Admin)
+
 exports.updateTipo = async (req, res) => {
   try {
     const [updated] = await TipoPqrs.update(req.body, {
@@ -69,7 +60,7 @@ exports.updateTipo = async (req, res) => {
   }
 };
 
-// 5. Eliminar Tipo (Solo Admin)
+
 exports.deleteTipo = async (req, res) => {
   try {
     const deleted = await TipoPqrs.destroy({

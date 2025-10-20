@@ -1,4 +1,3 @@
-// models/tipo_pqrs.js
 const { DataTypes } = require('sequelize');
 const sequelize = require('../db/db.config');
 

@@ -103,7 +103,12 @@
   }
 
   body {
-    background-color: hsl(var(--background));
+    background-image: url("../public/resources/trigo.jpg");
+    background-repeat: repeat;
+    background-size: cover;
+    background-position: center center;
+    min-height: 100vh; /* Ejemplo para que ocupe toda la altura de la pantalla */
+    width: 100%;
     color: hsl(var(--foreground));
   }
 }

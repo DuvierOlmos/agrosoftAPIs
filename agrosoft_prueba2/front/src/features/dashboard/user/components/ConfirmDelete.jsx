@@ -2,11 +2,12 @@ import React from "react";
 import { deleteUser } from "../services/userService";
 import "../styles/ConfirmDelete.css";
 
-export default function ConfirmDelete({ show, onClose, userId }) {
+export default function ConfirmDelete({ show, onClose, userId, onSave }) {
   const handleDelete = async () => {
     try {
       await deleteUser(userId);
       console.log("Usuario eliminado:", userId);
+      onSave();
       onClose();
     } catch (err) {
       console.error("Error al eliminar:", err);

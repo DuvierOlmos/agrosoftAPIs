@@ -16,8 +16,8 @@ export default function CategoryForm({ show, onClose, onSave }) {
     try {
       await createCategory(form);
       console.log("Categoría creada:", form);
-      onClose();
-     
+      onSave();
+      onClose();     
     } catch (err) {
       console.error("Error al crear categoría:", err);
     }
@@ -40,7 +40,7 @@ export default function CategoryForm({ show, onClose, onSave }) {
       
 
           <div className="form-actions">
-            <button type="submit" className="btn-primary">Guardar</button>
+            <button type="submit" className="btn-primary" onClick={onClose}>Guardar</button>
             <button type="button" className="btn-secondary" onClick={onClose}>
               Cancelar
             </button>

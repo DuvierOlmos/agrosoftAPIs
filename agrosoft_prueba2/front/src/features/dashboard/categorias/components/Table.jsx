@@ -5,12 +5,11 @@ import {deleteCategory} from "../services/categoryService";
 
 import CategoryEditForm from "./CategoryEditForm";
 import ConfirmDelete from "./ConfirmDelete";
-import "../styles/UserTable.css";
+import "../../../../styles/UserTable.css";
 
 export default function CategoryTable( {onSave}) {
-    //  Inicializar categorías como un array vacío, no con datos quemados
-    const [categories, setCategories] = useState([]);
-    
+    //  Inicializar categorías como un array vacío
+    const [categories, setCategories] = useState([]);    
     //  NUEVOS ESTADOS para la carga y errores
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -44,7 +43,7 @@ export default function CategoryTable( {onSave}) {
     try {
       await deleteCategory(id_categoria);
       
-      setDeleteId(null); // Cierra el modal
+      setDeleteId(null);
       alert('categoria eliminada con éxito!');
       await loadCategories();
       
@@ -52,13 +51,10 @@ export default function CategoryTable( {onSave}) {
       alert(`Error al eliminar: ${err}`);
     }
   };
-
-    // --- LÓGICA DE RENDERIZADO ---
-    
+    // --- LÓGICA DE RENDERIZADO ---    
     if (loading) {
         return <div className="table-container">Cargando categorías...</div>;
     }
-
     if (error) {
         return <div className="table-container error-message">Error: {error}</div>;
     }
@@ -78,8 +74,7 @@ export default function CategoryTable( {onSave}) {
             categories.map((c) => (
               <tr key={c.id_categoria}>
                 <td>{c.id_categoria}</td>
-                <td>{c.nombre_categoria}</td>
-                
+                <td>{c.nombre_categoria}</td>                
                 <td>
                   <button
                     className="btn-success"
@@ -110,6 +105,7 @@ export default function CategoryTable( {onSave}) {
           show={!!editCategory}
           category={editCategory}
           onClose={() => setEditCategory(null)}
+          onSave={loadCategories}
         />
       )}
       {deleteId && (
@@ -118,6 +114,7 @@ export default function CategoryTable( {onSave}) {
           categoryId={deleteId}
           onClose={() => setDeleteId(null)}
           onConfirm={handleDeleteConfirm}
+          onSave={loadCategories}
         />
       )}
     </div>

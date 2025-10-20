@@ -12,32 +12,30 @@ const User = sequelize.define('User', {
     type: DataTypes.STRING,
     allowNull: false,
   },
-  password_hash: { // Almacena la contraseña cifrada
+  password_hash: {
     type: DataTypes.STRING,
     allowNull: false,
   },
   correo_electronico: {
     type: DataTypes.STRING,
     allowNull: false,
-    unique: true, // Debe ser único para cada usuario
+    unique: true, 
   },
-  id_rol: { // Clave foránea que apunta al modelo Rol
+  id_rol: { 
     type: DataTypes.INTEGER,
     allowNull: false,
   },
   documento_identidad: {
     type: DataTypes.STRING,
   },
-  estado: { // Ej: 'Activo', 'Inactivo'
+  estado: { 
     type: DataTypes.STRING,
   },
 }, {
   // Opciones del Modelo
-  tableName: 'usuarios', // Nombre real de la tabla en la base de datos
-  timestamps: false, // Asumo que no usas las columnas createdAt y updatedAt
+  tableName: 'usuarios', 
+  timestamps: false, 
 });
 
-// Importante: No definir la asociación aquí para evitar dependencias circulares.
-// La asociación User.belongsTo(Rol, ...) se hará en models/associations.js
 
 module.exports = User;

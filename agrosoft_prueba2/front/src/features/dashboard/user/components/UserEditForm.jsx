@@ -126,9 +126,10 @@ export default function UserEditForm({ show, onClose, user, onSave}) {
             <button type="submit" 
                     className="btn-primary" 
                     disabled={loading}>
-                    {loading ? 'Guardando...' : 'Guardar Cambios'},
+                    
+                    {loading ? 'Guardando...' : 'Guardar Cambios'}
               
-              Guardar Cambios
+              
             </button>
             <button
               type="button"

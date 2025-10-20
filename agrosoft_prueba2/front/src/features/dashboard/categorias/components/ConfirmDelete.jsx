@@ -2,11 +2,12 @@ import React from "react";
 import { deleteCategory } from "../services/categoryService";
 import "../styles/ConfirmDelete.css";
 
-export default function ConfirmDelete({ show, onClose, categoryId }) {
+export default function ConfirmDelete({ show, onClose, categoryId, onSave }) {
   const handleDelete = async () => {
     try {
       await deleteCategory(categoryId);
       console.log("categoria eliminada:", categoryId);
+      onSave();
       onClose();
     } catch (err) {
       console.error("Error al eliminar categoria:", err);

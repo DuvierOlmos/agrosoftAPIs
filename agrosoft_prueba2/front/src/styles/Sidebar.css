@@ -2,7 +2,7 @@
 .sidebar {
   width: 220px;
   height: 100vh;
-  background: #1f2937;
+  background: #1b6313;
   color: #fff;
   display: flex;
   flex-direction: column;
@@ -18,10 +18,11 @@
 }
 
 .sidebar-title {
-  font-size: 20px;
+  font-size: 1.7em;
   margin-bottom: 20px;
   text-align: center;
-  color: #60a5fa;
+  color: #f1f4f6;
+  font-weight: bold;
 }
 
 .sidebar nav ul {
@@ -32,12 +33,13 @@
 
 .sidebar nav ul li {
   margin: 15px 0;
+  font-weight: bold;
 }
 
 .sidebar nav ul li a {
   text-decoration: none;
   color: #f9fafb;
-  font-size: 16px;
+  font-size: 20px;
   padding: 8px 12px;
   display: block;
   border-radius: 6px;
@@ -45,7 +47,7 @@
 }
 
 .sidebar nav ul li a:hover {
-  background: #2563eb;
+  background: #e97232;
   color: #fff;
 }
 
@@ -54,7 +56,7 @@
   position: fixed;
   top: 5px;
   left: 5px;
-  background: #2563eb;
+  background: #e97232;
   border: none;
   color: #fff;
   font-size: 20px;
@@ -65,7 +67,7 @@
 }
 
 .hamburger-btn:hover {
-  background: #1e40af;
+  background: #e43838;
 }
 
 /* Contenido principal */
@@ -78,4 +80,23 @@
 /* Cuando el sidebar está abierto */
 .main-content.shifted {
   margin-left: 220px;
+}
+
+.logo {
+  size: 20px;
+    border-radius: 10%;
+    width: 150px; 
+    height: 100px; 
+    object-fit: cover;
+    box-shadow: 
+        0 4px 8px rgba(0, 0, 0, 0.2),
+        0 0 0 5px rgba(183, 235, 62, 0.8); 
+    transition: transform 0.4s ease-in-out, box-shadow 0.3s ease-in-out;
+    display: block;
+    margin: 20px auto;
+}
+
+.logo:hover {
+    transform: scale(1.04); 
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); 
 }

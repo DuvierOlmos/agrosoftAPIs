@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import UserTable from "../components/UserTable";
 import UserForm from "../components/UserForm";
-import "../styles/PageUser.css";
+import "../../../../styles/PageUser.css";
+
 
 export default function PageUser() {
   const [showForm, setShowForm] = useState(false);

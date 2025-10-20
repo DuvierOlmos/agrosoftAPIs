@@ -5,10 +5,10 @@ const pedidoController = require('../controllers/pedidoController');
 const adminMiddleware = require('../middlewares/adminMiddleware'); 
 const estadoPedidoController = require('../controllers/estadoPedidoController')
 
-// Rutas de ADMINISTRACIÓN de Pedidos (CRUD solo lectura/actualización de estado)
-router.get('/admin', pedidoController.getAllPedidosAdmin); // Leer todos
-router.get('/admin/:id',  pedidoController.getPedidoByIdAdmin); // Leer uno
+// Rutas de ADMINISTRACIÓN de Pedidos 
+router.get('/admin', pedidoController.getAllPedidosAdmin); 
+router.get('/admin/:id',  pedidoController.getPedidoByIdAdmin);
 router.put('/admin/orders/estado/:id', estadoPedidoController.updateEstadoPedido);
-router.put('/admin/estadoPedido/:id', estadoPedidoController.updateEstadoPedido);  // Actualizar estado
+router.put('/admin/estadoPedido/:id', estadoPedidoController.updateEstadoPedido); 
 
 module.exports = router;

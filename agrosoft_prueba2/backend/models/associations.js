@@ -1,9 +1,6 @@
-// models/associations.js
-
-// Importar la instancia de Sequelize
 const sequelize = require('../db/db.config');
 
-// Importar todos los modelos (asegúrate de que estas rutas sean correctas)
+// modelos
 const User = require('./user');
 const Rol = require('./rol');
 const Categoria = require('./categoria');
@@ -19,19 +16,11 @@ const EstadoPqrs = require('./estadoPqrs');
 const TipoPqrs = require('./tipoPqrs');
 
 
-// =================================================================
-// 1. Relaciones de Usuarios y Roles (Datos Maestros)
-// =================================================================
 
-// Un Rol tiene muchos Usuarios (Un administrador, muchos productores, etc.)
+// Un Rol tiene muchos Usuarios
 Rol.hasMany(User, { foreignKey: 'id_rol', as: 'Usuarios' });
 // Un Usuario pertenece a un Rol
 User.belongsTo(Rol, { foreignKey: 'id_rol', as: 'Rol' });
-
-
-// =================================================================
-// 2. Relaciones del Catálogo (Categoría y Productos)
-// =================================================================
 
 // Una Categoría tiene muchas SubCategorías
 Categoria.hasMany(SubCategoria, { foreignKey: 'id_categoria', as: 'SubCategorias' });
@@ -49,9 +38,6 @@ Product.belongsTo(SubCategoria, { foreignKey: 'id_SubCategoria' });
 //Product.belongsTo(User, { foreignKey: 'id_usuario', as: 'Productor' });
 
 
-// =================================================================
-// 3. Relaciones de Pedidos
-// =================================================================
 
 // Un Usuario (Cliente) tiene muchos Pedidos
 User.hasMany(Pedido, { foreignKey: 'id_usuario', as: 'PedidosCliente' });
@@ -63,8 +49,6 @@ Pedido.hasMany(DetallePedido, { foreignKey: 'id_pedido', as: 'Detalles' });
 // Un DetallePedido pertenece a un Pedido
 DetallePedido.belongsTo(Pedido, { foreignKey: 'id_pedido' });
 
-
-
 // Un Producto está en muchos Detalles de Pedido
 Product.hasMany(DetallePedido, { foreignKey: 'id_producto' });
 // Un Detalle de Pedido pertenece a un Producto
@@ -73,35 +57,19 @@ DetallePedido.belongsTo(Product, { foreignKey: 'id_producto' });
 
 
 Pedido.belongsTo(EstadoPedido, { foreignKey: 'id_estado_pedido', as: 'Estado' });
-
-
-
-
-// =================================================================
-// 4. Relaciones de Descuentos (Muchos a Muchos: Productos <-> Descuentos)
-// =================================================================
-
-
-
-// Esto establece la conexión directa Producto <-> ProductoDescuento
     Product.hasMany(ProductoDescuento, {
     foreignKey: 'id_producto',
     sourceKey: 'id_producto'
 });
 
-
-// 2. Relaciones BelongsTo (necesarias para el 'include' desde la tabla de unión)
-// Esto establece la conexión inversa ProductoDescuento -> Descuento
 ProductoDescuento.belongsTo(Descuento, {
     foreignKey: 'id_descuento'
 });
 
-// Esto establece la conexión inversa ProductoDescuento -> Producto
 ProductoDescuento.belongsTo(Product, {
     foreignKey: 'id_producto'
 });
 
-// 3. (Opcional) Relaciones BelongsToMany (para consultas M:M directas)
 Product.belongsToMany(Descuento, {
     through: ProductoDescuento,
     foreignKey: 'id_producto',
@@ -113,11 +81,6 @@ Descuento.belongsToMany(Product, {
     foreignKey: 'id_descuento',
     otherKey: 'id_producto'
 });
-
-
-// =================================================================
-// 5. Relaciones de PQRS
-// =================================================================
 
 // Un Usuario puede tener muchas PQRS
 User.hasMany(Pqrs, { foreignKey: 'id_usuario', as: 'PQRSGeneradas' });
@@ -139,7 +102,6 @@ Pqrs.belongsTo(TipoPqrs, { foreignKey: 'id_tipo_pqrs', as: 'Tipo' });
 // Exportar la instancia de Sequelize para la sincronización
 module.exports = {
   sequelize,
-  // Exporta  los modelos  una sincronización más explícita
     User,
     Rol,
     SubCategoria,

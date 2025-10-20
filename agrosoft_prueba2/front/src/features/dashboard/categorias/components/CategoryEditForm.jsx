@@ -1,19 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { updateCategory } from "../services/categoryService";
-import "../styles/UserEditForm.css"; // puedes duplicar a CategoryEditForm.css si quieres
+import "../styles/UserEditForm.css"; 
 
 export default function CategoryEditForm({ show, onClose, category, onSave }) {
   const [form, setForm] = useState({
     id_categoria: "",
     nombre_categoria: "",
   });
-
-  // Cuando cambia la categoría, rellenamos el form
   useEffect(() => {
     if (category) {
       setForm({
-        nombre_categoria: category.nombre_categoria || "",
-        
+        nombre_categoria: category.nombre_categoria || "",        
       });
     }
   }, [category]);
@@ -27,9 +24,7 @@ export default function CategoryEditForm({ show, onClose, category, onSave }) {
     try {
       const updated = await updateCategory(category.id_categoria, form);
       console.log("Categoría actualizada:", updated);
-      onSave();
-      onClose();
-      
+      onClose();      
     } catch (err) {
       console.error("Error al actualizar categoría:", err);
       alert("No se pudo actualizar la categoría");
@@ -49,9 +44,6 @@ export default function CategoryEditForm({ show, onClose, category, onSave }) {
             onChange={handleChange}
             required
           />
-
-          
-
           <div className="form-actions">
             <button type="submit" className="btn-primary">
               Guardar Cambios

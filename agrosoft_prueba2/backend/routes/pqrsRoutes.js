@@ -7,12 +7,8 @@ const adminMiddleware = require('../middlewares/adminMiddleware');
 
 
 router.post('/admin/create', pqrsController.createPqrs); 
-
-
 router.get('/admin',  pqrsController.getAllPqrsAdmin); 
 router.get('/admin/:id_pqrs',  pqrsController.getPqrsById); 
-
-// PUT: Actualizar estado y respuesta (Solo Admin)
 router.put('/admin/update/:id_pqrs', pqrsController.updatePqrsAdmin); 
 
 module.exports = router;

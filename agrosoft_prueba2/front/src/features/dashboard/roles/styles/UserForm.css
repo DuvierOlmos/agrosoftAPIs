@@ -26,7 +26,7 @@
 
 /* === Caja del modal === */
 .modal_user {
-  background: #ffffff;
+  background: #d1ecc3;
   padding: 25px;
   border-radius: 10px;
   width: 400px;
@@ -38,7 +38,7 @@
 .modal_user h2 {
   margin-top: 0;
   font-size: 20px;
-  color: #2563eb;
+  color: #1e5907;
   margin-bottom: 15px;
 }
 
@@ -70,7 +70,7 @@
 
 /* === Botones === */
 .btn-primary {
-  background: #2563eb;
+  background: #d59322;
   color: #ffffff;
   border: none;
   padding: 8px 14px;
@@ -80,7 +80,7 @@
 }
 
 .btn-primary:hover {
-  background: #1e40af;
+  background: #e85427;
 }
 
 .btn-secondary {

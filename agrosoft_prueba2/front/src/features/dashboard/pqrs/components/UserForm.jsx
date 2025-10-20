@@ -1,15 +1,17 @@
 import React, { useState } from "react";
 import { createUser } from "../services/userService";
-import "../styles/UserForm.css";
+import "../../../../styles/UserForm.css";
 
-export default function UserForm({ show, onClose }) {
+export default function Form({ show, onClose }) {
   const [form, setForm] = useState({
-    nombre_usuario: "",
-    password_hash: "",
-    correo_electronico: "",
-    id_rol: "",
-    documento_identidad: "",
-    estado: "",
+    id_pqrs: "",
+    id_usuario: "",
+    id_tipo_pqrs: "",
+    asunto: "",
+    descripcion: "",
+    id_estado_pqrs: "",
+    respuesta_administrador:"",
+    id_administrador_respuesta:""
   });
 
   const roles = [
@@ -36,7 +38,7 @@ export default function UserForm({ show, onClose }) {
   return (
     <div className={`modal_user-overlay ${show ? "show" : ""}`}>
       <div className="modal_user">
-        <h2>Nuevo Usuario</h2>
+        <h2>Nueva Pqrs</h2>
         <form onSubmit={handleSubmit}>
           <label>Nombre</label>
           <input

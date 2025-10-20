@@ -3,23 +3,19 @@ const { DataTypes } = require('sequelize');
 const sequelize = require('../db/db.config');
 
 const ProductoDescuento = sequelize.define('ProductoDescuento', {
-  // Las claves foráneas se definen aquí, pero Sequelize las maneja por defecto
-  // gracias a la configuración en associations.js. Se definen explícitamente para claridad.
   id_producto: {
     type: DataTypes.INTEGER,
-    primaryKey: true, // Clave compuesta 1
+    primaryKey: true, 
     allowNull: false,
   },
   id_descuento: {
     type: DataTypes.INTEGER,
-    primaryKey: true, // Clave compuesta 2
+    primaryKey: true,
     allowNull: false,
   },
-}, {
-  // Opciones del Modelo
-  tableName: 'producto_descuento', // Nombre exacto de la tabla de unión
+}, {  
+  tableName: 'producto_descuento', 
   timestamps: false,
-  // Definimos la clave primaria compuesta (opcional si ya usamos primaryKey: true arriba)
   indexes: [
     {
       unique: true,
@@ -27,5 +23,4 @@ const ProductoDescuento = sequelize.define('ProductoDescuento', {
     },
   ],
 });
-
 module.exports = ProductoDescuento;

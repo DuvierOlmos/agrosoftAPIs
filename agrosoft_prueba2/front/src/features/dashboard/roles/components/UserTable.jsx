@@ -1,75 +1,79 @@
-import React, { useState } from "react";
-import UserEditForm from "./UserEditForm";
+import React, { useState, useEffect } from "react";
+import RolesEditForm from "./RolesEditForm";
 import ConfirmDelete from "./ConfirmDelete";
-import "../styles/UserTable.css";
+import { getRoles, deleteRol } from "../services/rolesService"; 
+import "../../../../styles/UserTable.css";
 
-export default function UserTable() {
-  // 🔥 Usuarios quemados de prueba (simulando lo que vendría del backend)
-  const [users, setUsers] = useState([
-    {
-      id_usuario: 1,
-      nombre_usuario: "Juan Pérez",
-      password_hash: "******",
-      correo_electronico: "juan@example.com",
-      id_rol: 2,
-      documento_identidad: "123456789",
-      estado: "activo",
-    },
-    {
-      id_usuario: 2,
-      nombre_usuario: "Ana Gómez",
-      password_hash: "******",
-      correo_electronico: "ana@example.com",
-      id_rol: 3,
-      documento_identidad: "987654321",
-      estado: "inactivo",
-    },
-  ]);
-
-  // Diccionario de roles: id → nombre
-  const roles = {
-    1: "cliente",
-    2: "administrador",
-    3: "agricultor",
-  };
-
-  const [editUser, setEditUser] = useState(null);
+export default function Table() {
+  const [roles, setRoles] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [editRol, setEditRoles] = useState(null);
   const [deleteId, setDeleteId] = useState(null);
+
+  const loadRol = async () => {
+          setLoading(true);
+          setError(null);
+          try {
+              const data = await getRoles();
+              setRoles(data);
+              
+          } catch (err) {
+              console.error("Fallo en la carga de roles:", err);
+              setError(err.message);
+          } finally {
+              setLoading(false);
+          }
+      };      
+      useEffect(() => {
+          loadRol();
+      }, []); 
+
+      const handleDeleteConfirm = async (id_rol) => {
+          try {
+            await deleteRol(id_rol);            
+            setDeleteId(null); // Cierra el modal
+            alert('Rol eliminado con éxito!');
+            await loadRol();            
+          } catch (err) {
+            alert(`Error al eliminar: ${err}`);
+          }
+        };
+    if (loading) {
+        return <div className="table-container">Cargando Roles...</div>;
+    }
+    if (error) {
+        return <div className="table-container error-message">Error: {error}</div>;
+    }
 
   return (
     <div className="table-container">
       <table className="user-table">
         <thead>
           <tr>
-            <th>ID</th>
-            <th>Nombre Usuario</th>
-            <th>Correo Electrónico</th>
-            <th>Documento Identidad</th>
-            <th>Rol</th>
-            <th>Estado</th>
+            <th>Id Rol</th>
+            <th>Nombre Rol</th>
+            <th>Descripción</th>            
             <th>Acciones</th>
           </tr>
         </thead>
         <tbody>
-          {users.length > 0 ? (
-            users.map((u) => (
-              <tr key={u.id_usuario}>
-                <td>{u.id_usuario}</td>
-                <td>{u.nombre_usuario}</td>
-                <td>{u.correo_electronico}</td>
-                <td>{u.documento_identidad}</td>
-                <td>{roles[u.id_rol] || "Desconocido"}</td>
-                <td>{u.estado}</td>
+          {roles.length > 0 ? (
+            roles.map((u) => (
+              <tr key={u.id_rol}>
+                <td>{u.id_rol}</td>
+                <td>{u.nombre_rol}</td>
+                <td>{u.descripcion_rol}</td>                
                 <td>
                   <button
                     className="btn-success"
-                    onClick={() => setEditUser(u)}
+                    onClick={() => setEditRoles(u)}
                   >
                     Editar
                   </button>
                   <button
                     className="btn-danger"
-                    onClick={() => setDeleteId(u.id_usuario)}
+                    onClick={() => setDeleteId(u.id_rol)}
                   >
                     Eliminar
                   </button>
@@ -85,18 +89,22 @@ export default function UserTable() {
       </table>
 
       {/* Modales */}
-      {editUser && (
-        <UserEditForm
-          show={!!editUser}
-          user={editUser}
-          onClose={() => setEditUser(null)}
+      {editRol && (
+        <RolesEditForm
+          show={!!editRol}
+          roles={editRol}
+          onClose={() => setEditRoles(null)}
+          onSave={loadRol}
         />
       )}
       {deleteId && (
         <ConfirmDelete
           show={!!deleteId}
-          userId={deleteId}
-          onClose={() => setDeleteId(null)}
+          id_rol={deleteId}
+          onClose={() => setDeleteId(null)}          
+          onConfirm={handleDeleteConfirm}
+          onSave={loadRol}
+          
         />
       )}
     </div>

@@ -1,4 +1,3 @@
-// controllers/descuentoController.js
 const Descuento = require('../models/descuento');
 
 // 1. Crear Nuevo Descuento

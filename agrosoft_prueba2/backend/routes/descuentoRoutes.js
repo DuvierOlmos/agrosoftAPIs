@@ -1,10 +1,9 @@
-// routes/descuentoRoutes.js
 const express = require('express');
 const router = express.Router();
 const descuentoController = require('../controllers/descuentoController');
-const adminMiddleware = require('../middlewares/adminMiddleware'); // Debe estar creado
+const adminMiddleware = require('../middlewares/adminMiddleware');
 
-// Rutas de administración de Descuentos (solo para Admin)
+// Rutas de administración de Descuentos 
 router.post('/create',  descuentoController.createDescuento);
 router.get('/admin',  descuentoController.getAllDescuentos);
 router.get('/:id',  descuentoController.getDescuentoById);

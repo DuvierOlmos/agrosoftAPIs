@@ -1,10 +1,10 @@
-// controllers/productController.js
 const Product = require('../models/product');
 const SubCategoria = require('../models/subCategoria');
-const User = require('../models/user'); // Para incluir los datos del Productor
+const User = require('../models/user');
 const Categoria = require('../models/categoria');
 const Descuento = require('../models/descuento');
-// 1. Obtener TODOS los productos (Admin puede ver todos, incluyendo pendientes)
+
+
 exports.getAllProductsAdmin = async (req, res) => {
   try {
     const products = await Product.findAll({
@@ -21,7 +21,7 @@ exports.getAllProductsAdmin = async (req, res) => {
   }
 };
 
-// 2. Actualizar Producto (Incluye datos básicos y Aprobación)
+//Actualizar Producto
 exports.updateProductAdmin = async (req, res) => {
   try {
     const [updated] = await Product.update(req.body, {
@@ -40,10 +40,9 @@ exports.updateProductAdmin = async (req, res) => {
   }
 };
 
-// 3. Función Específica para APROBAR/RECHAZAR un Producto
 exports.approveProduct = async (req, res) => {
   try {
-    const { estado } = req.body; // estado debe ser 'Aprobado' o 'Rechazado'
+    const { estado } = req.body; 
     const validStates = ['Aprobado', 'Rechazado'];
     
     if (!validStates.includes(estado)) {
@@ -71,18 +70,15 @@ exports.getProductById = async (req, res) => {
 
     const product = await Product.findByPk(id, {
       include: [
-        // 2. Incluir la Subcategoría
+ 
         {
           model: SubCategoria,
-       // Alias para la subcategoría del producto
           attributes: ['id_SubCategoria', 'nombre'],
-          // 3. Incluir la Categoría Padre dentro de la Subcategoría
           include: [{
             model: Categoria,
             attributes: ['id_categoria', 'nombre_categoria']
           }]
         },
-        // 4. Incluir los Descuentos aplicados (Relación Muchos a Muchos)
         {
           model: Descuento,
           through: { attributes: [] }, 
@@ -150,7 +146,6 @@ exports.createProductAdmin = async (req, res) => {
     });
 
   } catch (error) {
-    // Manejar errores de Sequelize (ej. restricción de clave foránea, datos inválidos)
     res.status(500).json({ error: 'Error al crear el producto', details: error.message });
   }
 };

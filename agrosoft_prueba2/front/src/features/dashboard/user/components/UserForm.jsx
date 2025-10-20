@@ -1,17 +1,16 @@
 import React, { useState } from "react";
 import { createUser } from "../services/userService";
-import "../styles/UserEditForm.css";
+import "../styles/UserForm.css";
 
 export default function UserCreateForm({ show, onClose, onSave }) { 
     
-    // Estado inicial del formulario para un nuevo usuario
     const [form, setForm] = useState({
         nombre_usuario: "",
         password_hash: "", 
         correo_electronico: "",
         id_rol: "",
         documento_identidad: "",
-        estado: "activo", // Valor por defecto
+        estado: "activo", 
     });
 
     const roles = [
@@ -29,36 +28,24 @@ export default function UserCreateForm({ show, onClose, onSave }) {
     const handleChange = (e) => {
         setForm({ ...form, [e.target.name]: e.target.value });
     };
-
-    // ----------------------------------------------------------------------
-    //  FUNCIÓN handleSubmit: Exclusiva para la Creación
-    // ----------------------------------------------------------------------
     const handleSubmit = async (e) => {
         e.preventDefault();
         setLoading(true);
         setApiError(null);
         
-        // 1. Preparación de los datos
+        // Preparación de los datos
         const dataToSend = {
             ...form,
-            // Asegurar que id_rol sea numérico para el backend
             id_rol: parseInt(form.id_rol),
         };
 
-        try {
-            // 2. Llamada a la API de Creación
-            const created = await createUser(dataToSend);
-            
+        try {            
+            const created = await createUser(dataToSend);            
             alert(`Usuario ${created.nombre_usuario || 'creado'} con éxito.`);
-          
-            onClose();
-            
-            
-        } catch (err) {
-            // 4. Error: Muestra el mensaje de error capturado del servicio
+            onClose();            
+        } catch (err) {            
             console.error("Error al crear usuario:", err); 
-            setApiError(err.message || "No se pudo conectar con el servidor.");
-            
+            setApiError(err.message || "No se pudo conectar con el servidor.");            
         } finally {
             setLoading(false);
         }
@@ -155,7 +142,9 @@ export default function UserCreateForm({ show, onClose, onSave }) {
                             type="button"
                             className="btn-secondary"
                             onClick={onClose}
+                    
                             disabled={loading}
+                           
                         >
                             Cancelar
                         </button>

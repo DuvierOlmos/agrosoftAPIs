@@ -7,13 +7,13 @@ const bcrypt = require('bcryptjs');
 exports.getAllUsersAdmin = async (req, res) => {
   try {
     const users = await User.findAll({
-      // Incluimos el modelo Rol para ver el tipo de usuario
+ 
       include: [{
         model: Rol,
         as: 'Rol',
-        attributes: ['nombre_rol'] // Solo necesitamos el nombre del rol
+        attributes: ['nombre_rol']  
       }],
-      attributes: { exclude: ['password_hash'] } // Excluimos el hash de la contraseña por seguridad
+      attributes: { exclude: ['password_hash'] }  
     });
     res.json(users);
   } catch (error) {
@@ -25,14 +25,12 @@ exports.getUserByIdAdmin = async (req, res) => {
   try {
     const { id_usuario } = req.params;
 
-    const user = await User.findByPk(id_usuario, {
-      
+    const user = await User.findByPk(id_usuario, {      
       include: [{
         model: Rol,
         as: 'Rol',
         attributes: ['nombre_rol']
-      }],
-      // Excluir el hash de la contraseña por seguridad
+      }],   
       attributes: { exclude: ['password_hash'] } 
     });
 
@@ -47,11 +45,9 @@ exports.getUserByIdAdmin = async (req, res) => {
   }
 };
 
-// 2. Crear Nuevo Usuario (Admin puede registrar directamente a otros admins/productores)
-// Asegúrate de que tienes importados 'bcrypt' y tus modelos 'User' y 'Rol'
 
 exports.createUserAdmin = async (req, res) => {
-    // Desestructuración
+   
     const { 
         nombre_usuario, 
         password_hash, 
@@ -62,34 +58,31 @@ exports.createUserAdmin = async (req, res) => {
     } = req.body;
 
     try {
-        // --- 1. VALIDACIÓN DE ENTRADA ---
+     
         
         if (!password_hash || password_hash.trim() === '') {
             return res.status(400).json({ message: 'La contraseña es requerida para la creación.' });
         }
         
-        // 1. Hashear la contraseña
-        const hashedPassword = await bcrypt.hash(password_hash, 10); // 🟢 Renombrada a hashedPassword para claridad
-        
-        // 2. Verificar que el rol exista
+        //  Hashear la contraseña
+        const hashedPassword = await bcrypt.hash(password_hash, 10); 
+        //  Verificar que el rol exista
         const rolExistente = await Rol.findByPk(id_rol);
         
         if (!rolExistente) {
-            // 🟢 Usamos 404/400 para indicar que el recurso (Rol) no existe o es inválido
             return res.status(404).json({ message: `El rol con ID ${id_rol} no existe.` });
         }
 
-        // 3. CREAR EL USUARIO
+        // CREAR EL USUARIO
         const newUser = await User.create({
             nombre_usuario,
-            password_hash: hashedPassword, // Usamos el hash
+            password_hash: hashedPassword, 
             correo_electronico,
             id_rol,
             documento_identidad,
             estado,
         });
         
-        // Devolvemos la respuesta de éxito (201 Created)
         res.status(201).json({
             id_usuario: newUser.id_usuario,
             nombre_usuario: newUser.nombre_usuario,
@@ -100,15 +93,10 @@ exports.createUserAdmin = async (req, res) => {
         });
 
     } catch (error) {
-        // 🟢 Registramos el error completo en el servidor para debugging
-        console.error('Error durante la creación del usuario:', error); 
         
-        // --- 4. MANEJO DE ERRORES ESPECÍFICOS DE SEQUELIZE POR CAMPO ---
-
-        // 🟢 Manejar error de UNICIDAD (409 Conflict)
-        if (error.name === 'SequelizeUniqueConstraintError') {
-            
-            // Inspeccionamos la propiedad 'fields' del error para identificar el campo
+        console.error('Error durante la creación del usuario:', error);    
+        if (error.name === 'SequelizeUniqueConstraintError') {            
+           
             if (error.fields && error.fields.correo_electronico) {
                 return res.status(409).json({ 
                     message: 'El correo electrónico ya está registrado. Por favor, use otro.' 
@@ -118,46 +106,35 @@ exports.createUserAdmin = async (req, res) => {
                 return res.status(409).json({ 
                     message: 'El número de documento de identidad ya está registrado.' 
                 });
-            }
-            
-            // Manejo genérico para otras restricciones UNIQUE
+            }           
             return res.status(409).json({ 
                 message: 'Ya existe un usuario con uno de los datos proporcionados.' 
             });
-        }
-        
-        // 🟢 Manejar error de VALIDACIÓN DE MODELO (400 Bad Request)
-        if (error.name === 'SequelizeValidationError') {
-            // Extraemos los mensajes de error de validación para mayor detalle
+        }        
+        if (error.name === 'SequelizeValidationError') {           
             const validationErrors = error.errors.map(err => err.message);
             return res.status(400).json({ 
                 message: 'Error de validación en los datos proporcionados.', 
                 details: validationErrors 
             });
-        }
-        
-        // 🟢 Manejar error de CLAVE FORÁNEA (Foreign Key)
+        }       
+    
         if (error.name === 'SequelizeForeignKeyConstraintError') {
             return res.status(400).json({ message: 'Error de clave foránea. El ID de rol proporcionado es inválido.' });
         }
 
-        // --- 5. MANEJO GENÉRICO ---
-        // Para cualquier otro fallo inesperado (500 Internal Server Error)
         res.status(500).json({ message: 'Error interno del servidor al crear el usuario.', details: error.message });
     }
 };
 
-// 3. Actualizar Usuario y Cambiar Rol
+// Actualizar Usuario y Cambiar Rol
 exports.updateUserAdmin = async (req, res) => {
   try {
     const { id_usuario } = req.params;
-    const { password_hash, id_rol, ...updateData } = req.body; // Separamos password y id_rol
-    
-    // Si se proporciona una nueva contraseña, hashearla
-    if (password_hash) {
+    const { password_hash, id_rol, ...updateData } = req.body;    
+       if (password_hash) {
       updateData.password_hash = await bcrypt.hash(password_hash, 10);
     }
-
     // Si se proporciona un nuevo rol, verificar que exista
     if (id_rol) {
         const rol = await Rol.findByPk(id_rol);

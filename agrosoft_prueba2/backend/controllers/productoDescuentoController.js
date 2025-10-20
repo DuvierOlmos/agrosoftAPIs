@@ -27,12 +27,11 @@ exports.assignDescuentoToProduct = async (req, res) => {
   }
 };
 
-// 2. OBTENER todos los descuentos asignados a un Producto
 exports.getAsignaciones = async (req, res) => {
   try {
-    // Ahora Sequelize sabrá cómo hacer el JOIN
+
     const asignaciones = await ProductoDescuento.findAll({ 
-      include: [Descuento, Product], // Asumiendo que también incluyes Producto
+      include: [Descuento, Product], 
     });
     res.json(asignaciones);
   } catch (error) {
@@ -40,8 +39,6 @@ exports.getAsignaciones = async (req, res) => {
   }
 };
 
-
-// 3. DESASIGNAR un Descuento de un Producto (Eliminar asignación)
 exports.unassignDescuentoFromProduct = async (req, res) => {
   try {
     const { id_producto, id_descuento } = req.params;

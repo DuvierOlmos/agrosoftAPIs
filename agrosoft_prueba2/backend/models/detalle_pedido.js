@@ -1,4 +1,3 @@
-// models/detalle_pedido.js
 const { DataTypes } = require('sequelize');
 const sequelize = require('../db/db.config');
 

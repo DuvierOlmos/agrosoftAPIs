@@ -1,9 +1,10 @@
 .page-container {
   padding: 20px;
   font-family: Arial, sans-serif;
-  background: #f9fafb;
+  background: #778bd4;
   min-height: 100vh;
   color: #111827;
+  
 }
 
 .page-header {
@@ -19,7 +20,7 @@
 }
 
 .btn-primary {
-  background: #2563eb;
+  background: #eb7125;
   color: white;
   border: none;
   padding: 8px 14px;
@@ -28,5 +29,5 @@
 }
 
 .btn-primary:hover {
-  background: #1e40af;
+  background: #af3d1e;
 }

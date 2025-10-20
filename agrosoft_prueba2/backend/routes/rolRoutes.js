@@ -9,11 +9,6 @@ const adminMiddleware = require('../middlewares/adminMiddleware');
 router.post('/admin/create', rolController.createRol);
 router.put('/admin/update/:id_rol', rolController.updateRol);
 router.delete('/admin/delete/:id_rol', rolController.deleteRol);
-
-
-
-
-// Ruta para obtener todos los roles (acceso público)
 router.get('/admin', rolController.getAllRoles);
 router.get('/admin/:id_rol', rolController.getRolById);
 module.exports = router;
